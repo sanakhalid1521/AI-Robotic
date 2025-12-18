@@ -83,3 +83,6 @@ backend/node_modules/
 backend/dist/
 backend/build/
 backend/.env*
+__pycache__/
+*.pyc
+*.pyo

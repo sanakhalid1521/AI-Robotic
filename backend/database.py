@@ -1,4 +1,3 @@
-import asyncpg
 import os
 from typing import Optional
 
@@ -6,16 +5,29 @@ class DatabaseManager:
     def __init__(self):
         self.pool = None
         self.db_url = os.getenv("NEON_DB_URL")
+        # Check if asyncpg is available
+        try:
+            import asyncpg
+            self.asyncpg = asyncpg
+            self.is_available = True
+        except ImportError:
+            self.asyncpg = None
+            self.is_available = False
+            print("WARNING: asyncpg not available. Database functionality will be disabled.")
 
     @property
     def has_pool(self):
-        return self.pool is not None
+        return self.pool is not None and self.is_available
 
     async def connect(self):
         """Establish connection to Neon Postgres database"""
+        if not self.is_available:
+            print("Database functionality disabled due to missing asyncpg dependency")
+            return
+
         if self.db_url:
             try:
-                self.pool = await asyncpg.create_pool(
+                self.pool = await self.asyncpg.create_pool(
                     self.db_url,
                     min_size=1,
                     max_size=10,
@@ -26,10 +38,12 @@ class DatabaseManager:
             except Exception as e:
                 print(f"Failed to connect to Neon Postgres: {e}")
                 self.pool = None
+        else:
+            print("NEON_DB_URL not set, skipping database connection")
 
     async def create_tables(self):
         """Create required tables if they don't exist"""
-        if not self.pool:
+        if not self.has_pool:
             return
 
         async with self.pool.acquire() as conn:
@@ -66,12 +80,12 @@ class DatabaseManager:
 
     async def close(self):
         """Close the database connection"""
-        if self.pool:
+        if self.has_pool:
             await self.pool.close()
 
     async def get_document(self, doc_id: str):
         """Retrieve a document by ID"""
-        if not self.pool:
+        if not self.has_pool:
             return None
 
         async with self.pool.acquire() as conn:
@@ -82,7 +96,7 @@ class DatabaseManager:
 
     async def store_document(self, doc_id: str, content: str, metadata: dict = None):
         """Store a document in the database"""
-        if not self.pool:
+        if not self.has_pool:
             return
 
         async with self.pool.acquire() as conn:
@@ -98,7 +112,7 @@ class DatabaseManager:
 
     async def search_documents(self, query: str, limit: int = 10):
         """Search for documents (basic full-text search)"""
-        if not self.pool:
+        if not self.has_pool:
             return []
 
         async with self.pool.acquire() as conn:

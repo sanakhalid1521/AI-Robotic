@@ -75,8 +75,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ isOpen, onClose, initialContext
     setIsLoading(true);
 
     try {
-      // Construct the API URL - using Hugging Face deployment
-      const backendUrl = 'https://sanakhalid123-rag.hf.space';
+      // Construct the API URL - using local backend
+      const backendUrl = 'http://localhost:8001';
       const apiUrl = `${backendUrl}/api/rag/query`;
 
       console.log('Making request to:', apiUrl);

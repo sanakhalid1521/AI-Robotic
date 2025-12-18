@@ -9,6 +9,7 @@ from contextlib import asynccontextmanager
 import json
 from datetime import datetime, timedelta
 import secrets
+from dotenv import load_dotenv
 
 # Import required libraries for RAG implementation
 import cohere
@@ -17,6 +18,11 @@ from qdrant_client.http import models
 import uuid
 
 from services import RAGService
+
+# Load environment variables from .env file
+import os
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # OAuth imports (with fallback for missing authlib)
 try:
@@ -95,9 +101,22 @@ def generate_token() -> str:
 async def lifespan(app: FastAPI):
     # Startup
     print("Initializing RAG system...")
+    print(f"QDRANT_URL: {os.getenv('QDRANT_URL')}")
+    print(f"QDRANT_API_KEY exists: {bool(os.getenv('QDRANT_API_KEY'))}")
     global rag_service
-    rag_service = RAGService()
-    await rag_service.connect_to_neon_db()
+    try:
+        rag_service = RAGService()
+        print(f"RAGService created. Qdrant client type: {type(rag_service.qdrant_client)}")
+        print(f"Qdrant client has search method: {hasattr(rag_service.qdrant_client, 'search')}")
+        await rag_service.connect_to_neon_db()
+        print("RAG system initialized successfully")
+    except Exception as e:
+        print(f"Error initializing RAG system: {e}")
+        import traceback
+        traceback.print_exc()
+        # Don't let initialization errors crash the entire app
+        # The API endpoints will return errors if rag_service is None
+        pass
     yield
     # Shutdown
     print("Shutting down RAG system...")

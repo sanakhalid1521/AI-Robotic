@@ -25,7 +25,7 @@ const RAGInterface = () => {
 
     try {
       // Call the backend API
-      const response = await fetch('https://sanakhalid123-rag.hf.space/api/rag/query', {
+      const response = await fetch('http://localhost:8001/api/rag/query', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const RAGInterface = () => {
 
     try {
       // Call the paper generation API
-      const response = await fetch('https://sanakhalid123-rag.hf.space/api/rag/generate-paper', {
+      const response = await fetch('http://localhost:8001/api/rag/generate-paper', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

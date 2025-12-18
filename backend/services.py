@@ -22,7 +22,13 @@ class RAGService:
         # Initialize Cohere client
         cohere_api_key = os.getenv("COHERE_API_KEY")
         if cohere_api_key:
-            self.cohere_client = cohere.Client(cohere_api_key)
+            try:
+                self.cohere_client = cohere.Client(cohere_api_key)
+                print("Cohere client initialized successfully")
+            except Exception as e:
+                print(f"WARNING: Failed to initialize Cohere client: {e}")
+                print("Some features will be disabled.")
+                self.cohere_client = None
         else:
             print("WARNING: COHERE_API_KEY not set. Some features will be disabled.")
             self.cohere_client = None
@@ -43,26 +49,39 @@ class RAGService:
             except Exception as e:
                 print(f"Failed to connect to Qdrant Cloud: {e}")
                 print("Using in-memory storage for testing")
+                # Use in-memory Qdrant client
                 self.qdrant_client = QdrantClient(":memory:")
         else:
             print("QDRANT_URL or QDRANT_API_KEY not set or using placeholder values. Using in-memory storage for testing")
+            # Initialize in-memory Qdrant client
             self.qdrant_client = QdrantClient(":memory:")
 
         # Initialize database manager
         self.db_manager = DatabaseManager()
 
-        # Ensure the collection exists
+        # Ensure the collection exists (this will create it if needed)
         self._ensure_collection_exists()
+
+        # Verify that the client has the required methods
+        if not hasattr(self.qdrant_client, 'search'):
+            print("WARNING: Qdrant client doesn't have 'search' method. This may indicate an issue with the client initialization.")
 
     def _ensure_collection_exists(self):
         """Ensure the Qdrant collection exists"""
         try:
+            # Check if the collection exists
             self.qdrant_client.get_collection("physical_ai_docs")
-        except:
-            self.qdrant_client.create_collection(
-                collection_name="physical_ai_docs",
-                vectors_config=models.VectorParams(size=1024, distance=models.Distance.COSINE),
-            )
+        except Exception as e:
+            print(f"Collection doesn't exist, creating it: {e}")
+            try:
+                # Create the collection with proper vector configuration
+                self.qdrant_client.create_collection(
+                    collection_name="physical_ai_docs",
+                    vectors_config=models.VectorParams(size=1024, distance=models.Distance.COSINE),
+                )
+                print("Collection 'physical_ai_docs' created successfully")
+            except Exception as create_error:
+                print(f"Failed to create collection: {create_error}")
 
     async def connect_to_neon_db(self):
         """Establish connection to Neon Postgres database"""
@@ -120,12 +139,46 @@ class RAGService:
         """Search for relevant documents in Qdrant"""
         query_vector = await self.embed_text(query, input_type="search_query")
 
-        search_results = self.qdrant_client.search(
-            collection_name="physical_ai_docs",
-            query_vector=query_vector,
-            limit=limit,
-            with_payload=True
-        )
+        print(f"Qdrant client type: {type(self.qdrant_client)}")
+        print(f"Qdrant client has search method: {hasattr(self.qdrant_client, 'search')}")
+
+        # Check if the collection exists before searching
+        try:
+            self.qdrant_client.get_collection("physical_ai_docs")
+            print("Collection 'physical_ai_docs' exists")
+        except Exception as e:
+            print(f"Collection 'physical_ai_docs' does not exist: {e}")
+            # Try to create it again
+            try:
+                from qdrant_client.http import models
+                self.qdrant_client.create_collection(
+                    collection_name="physical_ai_docs",
+                    vectors_config=models.VectorParams(size=1024, distance=models.Distance.COSINE),
+                )
+                print("Collection 'physical_ai_docs' created successfully")
+            except Exception as create_error:
+                print(f"Failed to create collection: {create_error}")
+                return []
+
+        # Check if the qdrant_client has the search method
+        if not hasattr(self.qdrant_client, 'search'):
+            print("Qdrant client doesn't have search method - likely using in-memory mode without proper initialization")
+            # Return empty results if search method is not available
+            return []
+
+        try:
+            search_results = self.qdrant_client.search(
+                collection_name="physical_ai_docs",
+                query_vector=query_vector,
+                limit=limit,
+                with_payload=True
+            )
+        except Exception as e:
+            print(f"Qdrant search error: {e}")
+            import traceback
+            traceback.print_exc()
+            # Return empty results if search fails
+            return []
 
         results = []
         for result in search_results:
@@ -137,6 +190,7 @@ class RAGService:
                     "score": result.score
                 })
 
+        print(f"Found {len(results)} search results")
         return results
 
     async def generate_response(self, query: str, context: str = "") -> str:
