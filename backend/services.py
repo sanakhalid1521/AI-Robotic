@@ -8,6 +8,7 @@ import uuid
 from datetime import datetime
 from dotenv import load_dotenv
 from database import DatabaseManager
+from langdetect import detect
 
 load_dotenv()
 
@@ -199,15 +200,34 @@ class RAGService:
             return "Sorry, the AI service is not configured. Please set the COHERE_API_KEY environment variable."
 
         try:
+            # Detect the language of the query to provide appropriate response
+            try:
+                detected_lang = detect(query)
+                print(f"Detected language: {detected_lang}")
+            except:
+                detected_lang = "en"  # Default to English if detection fails
+
             # Prepare the message content
             full_context = f"Context: {context}\n\n" if context else ""
-            message = f"""
-            {full_context}
-            Question: {query}
 
-            Please provide a comprehensive answer based on the Physical AI & Robotics textbook content.
-            If you don't have enough information, say so clearly.
-            """
+            # Customize message based on detected language
+            if detected_lang == 'ur':  # Urdu
+                message = f"""
+                {full_context}
+                سوال: {query}
+
+                براہ کرم فزیکل ای آئی اور روبوٹکس کے درسی منصوبے کے مواد کی بنیاد پر جامع جواب فراہم کریں۔
+                اگر آپ کے پاس کافی معلومات نہیں ہیں تو واضح طور پر کہیں۔
+                جواب اردو میں ہونا چاہیے۔
+                """
+            else:  # Default to English
+                message = f"""
+                {full_context}
+                Question: {query}
+
+                Please provide a comprehensive answer based on the Physical AI & Robotics textbook content.
+                If you don't have enough information, say so clearly.
+                """
 
             # Try different models in order of preference
             # Based on testing, command-r-08-2024 works with the current API key
@@ -233,13 +253,22 @@ class RAGService:
                 return response.text.strip()
             else:
                 # If no models are available, return a helpful message
-                return """AI service is not currently available due to model access restrictions.
-                This may be because:
-                1. Your Cohere API key doesn't have access to the required models
-                2. The models have been deprecated or renamed
-                3. Your account tier doesn't support these models
+                if detected_lang == 'ur':
+                    return """AI سروس کا استعمال کرنے کے لیے ماڈل کی رسائی کی پابندیوں کی وجہ سے دستیاب نہیں ہے۔
+                    یہ اس وجہ سے ہو سکتا ہے:
+                    1. آپ کے کوہیر API کلید کے پاس درکار ماڈلز تک رسائی نہیں ہے
+                    2. ماڈلز کو ختم کر دیا گیا ہے یا نام تبدیل کر دیا گیا ہے
+                    3. آپ کا اکاؤنٹ ٹیئر ان ماڈلز کی حمایت نہیں کرتا
 
-                Please check your API key and model access, or contact support for assistance."""
+                    براہ کرم اپنی API کلید اور ماڈل تک رسائی چیک کریں، یا معاونت کے لیے رابطہ کریں۔"""
+                else:
+                    return """AI service is not currently available due to model access restrictions.
+                    This may be because:
+                    1. Your Cohere API key doesn't have access to the required models
+                    2. The models have been deprecated or renamed
+                    3. Your account tier doesn't support these models
+
+                    Please check your API key and model access, or contact support for assistance."""
 
         except Exception as e:
             print(f"Error generating response: {e}")

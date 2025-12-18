@@ -69,6 +69,7 @@ class AuthResponse(BaseModel):
 class QueryRequest(BaseModel):
     query: str
     context: Optional[str] = ""
+    language: Optional[str] = "auto"  # "auto", "en", "ur", etc.
 
 class QueryResponse(BaseModel):
     response: str
@@ -376,7 +377,11 @@ async def rag_query(request: QueryRequest):
 
         if any(greeting in query_lower for greeting in greetings):
             # For greetings, provide a simple response without searching the knowledge base
-            simple_response = f"Hello! I'm your Physical AI & Robotics assistant. You can ask me anything about the textbook content, and I'll help you find relevant information from the Physical AI & Robotics lessons."
+            # Check language to provide appropriate greeting
+            if request.language == "ur" or (request.language == "auto" and detect_language(request.query) == "ur"):
+                simple_response = f"ہیلو! میں آپ کا فزیکل ای آئی اور روبوٹکس اسسٹنٹ ہوں۔ آپ کتاب کے مواد کے بارے میں کچھ بھی پوچھ سکتے ہیں، اور میں آپ کو فزیکل ای آئی اور روبوٹکس کے اہم مضامین سے متعلق معلومات تلاش کرنے میں مدد کروں گا۔"
+            else:
+                simple_response = f"Hello! I'm your Physical AI & Robotics assistant. You can ask me anything about the textbook content, and I'll help you find relevant information from the Physical AI & Robotics lessons."
             return QueryResponse(response=simple_response)
 
         # Search for relevant documents
@@ -399,6 +404,17 @@ async def rag_query(request: QueryRequest):
     except Exception as e:
         print(f"Error in rag_query: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error processing query: {str(e)}")
+
+
+def detect_language(text: str) -> str:
+    """
+    Detect the language of the given text
+    """
+    try:
+        from langdetect import detect
+        return detect(text)
+    except:
+        return "en"  # Default to English if detection fails
 
 @app.post("/api/rag/generate-paper", response_model=PaperGenerationResponse)
 async def generate_paper(request: PaperGenerationRequest):
