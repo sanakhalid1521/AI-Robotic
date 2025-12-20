@@ -1,0 +1,87 @@
+.radioGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.radioOption {
+  position: relative;
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(145deg, #f8f9fa, #ffffff);
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+}
+
+.radioOption:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.radioOption.selected {
+  border-color: #FF00FF;
+  background: linear-gradient(145deg, #ff00ff, #ff69b4);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 0, 255, 0.3);
+}
+
+.radioOption.selected .radioText {
+  color: white;
+  font-weight: 600;
+}
+
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radioText {
+  display: block;
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Different color schemes for each option */
+.radioOption:nth-child(1):not(.selected) {
+  background: linear-gradient(145deg, #e3f2fd, #ffffff);
+  border-color: #bbdefb;
+}
+
+.radioOption:nth-child(2):not(.selected) {
+  background: linear-gradient(145deg, #f3e5f5, #ffffff);
+  border-color: #d1c4e9;
+}
+
+.radioOption:nth-child(3):not(.selected) {
+  background: linear-gradient(145deg, #e8f5e8, #ffffff);
+  border-color: #c8e6c9;
+}
+
+.radioOption:nth-child(4):not(.selected) {
+  background: linear-gradient(145deg, #fff3e0, #ffffff);
+  border-color: #ffe0b2;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .radioOption {
+    min-width: calc(50% - 0.25rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .radioOption {
+    min-width: 100%;
+  }
+}
