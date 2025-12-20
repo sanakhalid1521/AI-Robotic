@@ -47,8 +47,6 @@ const config: Config = {
   },
 
   plugins: [
-    // Add auth plugin
-    './plugins/auth-plugin',
   ],
 
   themes: [
