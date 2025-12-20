@@ -23,3 +23,10 @@ Effective perception involves:
 - Real-time processing of sensor data
 - Object recognition and scene understanding
 - Spatial mapping and localization
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Chapter 3 Summary: Sensor Integration & Perception"
+  content="Robots must perceive their environment to operate effectively in the physical world. Common sensors include vision systems, tactile sensors, IMUs, force/torque sensors, and environmental sensors. Effective perception systems involve sensor fusion, real-time processing, object recognition, scene understanding, spatial mapping, and localization. This chapter covered the fundamental concepts of sensor integration and perception for robotic systems."
+/>

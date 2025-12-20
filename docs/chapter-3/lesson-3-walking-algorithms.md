@@ -56,3 +56,10 @@ Walking algorithms for humanoid robots are complex systems that must coordinate 
 ## Hands-On Activity
 
 Analyze the walking pattern of a person walking at different speeds. Notice how the step length, step width, and center of mass movement change. Consider how these observations could inform the design of a walking algorithm for a humanoid robot. Create a simple model showing how step length might be adjusted based on desired walking speed while maintaining stability.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 3 Summary: Walking Algorithms"
+  content="Walking algorithms for humanoid robots must coordinate multiple joints while maintaining balance and achieving forward motion. Key approaches include precomputed trajectories and online pattern generation. Important algorithms include ZMP-based walking, Capture Point-based walking, and Divergent Component of Motion (DCM). Walking involves footstep planning, joint trajectory generation, and real-time adjustments. This lesson covered the fundamental concepts of humanoid robot walking algorithms and their implementation."
+/>

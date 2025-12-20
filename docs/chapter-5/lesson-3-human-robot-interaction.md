@@ -117,3 +117,10 @@ Design a simple human-robot interaction scenario for a humanoid robot in an educ
 5. Handle situations where the student becomes frustrated
 
 Sketch out the interaction flow and identify the key technologies needed to enable this interaction.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 3 Summary: Human-Robot Interaction"
+  content="Human-robot interaction (HRI) is critical for humanoid robots in human environments. Key principles include safety first, natural interaction, and trust building. Communication modalities include verbal, non-verbal, and haptic communication. Social robotics principles involve anthropomorphism, social norms, and emotional intelligence. Interaction scenarios include assistive, collaborative, and service robotics. Challenges include technical, social, and safety aspects. This lesson covered the fundamental concepts of human-robot interaction for humanoid systems."
+/>

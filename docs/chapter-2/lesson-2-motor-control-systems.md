@@ -44,3 +44,10 @@ Design a simple control system for moving a robot arm from one point to another.
 4. Implement feedback control to correct errors
 
 Sketch out the control loop and identify where feedback would be used to improve performance.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 2 Summary: Motor Control Systems"
+  content="Motor control systems in humanoid robots generate appropriate commands to actuators for desired movements through complex coordination of multiple joints. Control hierarchies include high-level planning (trajectory planning, task sequencing), mid-level control (inverse kinematics, motion generation), and low-level control (joint servo control, torque control). Control approaches include model-based, learning-based, and hybrid methods. This lesson covered the fundamental concepts of robot motor control systems."
+/>

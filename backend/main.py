@@ -409,11 +409,24 @@ async def rag_query(request: QueryRequest):
 def detect_language(text: str) -> str:
     """
     Detect the language of the given text
+    Uses Unicode range detection for Urdu as a fallback to avoid import issues
     """
+    # First check for Urdu characters using Unicode range
+    # Urdu characters are in the Arabic block (0x0600-0x06FF) and Arabic Supplement block (0x0750-0x077F)
+    # Also check for Arabic Presentation Forms (0xFB50-0xFDFF, 0xFE70-0xFEFF)
+    for char in text:
+        if '\u0600' <= char <= '\u06FF' or '\u0750' <= char <= '\u077F' or '\uFB50' <= char <= '\uFDFF' or '\uFE70' <= char <= '\uFEFF':
+            return "ur"
+
+    # If no Urdu characters found, try langdetect as fallback
     try:
         from langdetect import detect
         return detect(text)
+    except ImportError:
+        # If langdetect is not available, default to English
+        return "en"
     except:
+        # If detection fails for any reason, default to English
         return "en"  # Default to English if detection fails
 
 @app.post("/api/rag/generate-paper", response_model=PaperGenerationResponse)

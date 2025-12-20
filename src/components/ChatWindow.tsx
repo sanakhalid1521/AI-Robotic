@@ -76,7 +76,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ isOpen, onClose, initialContext
 
     try {
       // Construct the API URL - using local backend
-      const backendUrl = 'http://localhost:8001';
+      const backendUrl = 'http://localhost:8000';
       const apiUrl = `${backendUrl}/api/rag/query`;
 
       console.log('Making request to:', apiUrl);
@@ -84,6 +84,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ isOpen, onClose, initialContext
         query: inputValue,
         context: contextText || "",
       });
+
+      // Detect language to send appropriate parameter
+      const detectLanguage = (text: string): string => {
+        // Simple heuristic to detect if text contains Urdu characters
+        const urduPattern = /[\u0600-\u06FF]/;
+        return urduPattern.test(text) ? 'ur' : 'en';
+      };
 
       // Call backend API with timeout using a more reliable timeout mechanism
       const timeoutPromise = new Promise((_, reject) =>
@@ -98,6 +105,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ isOpen, onClose, initialContext
         body: JSON.stringify({
           query: inputValue,
           context: contextText || "",
+          language: detectLanguage(inputValue) // Detect language and send parameter
         })
       });
 

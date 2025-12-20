@@ -49,3 +49,10 @@ Advanced control that considers all degrees of freedom simultaneously for optima
 ## Hands-On Activity
 
 Design a simple balance control system for a humanoid robot. Consider how you would detect when the robot is losing balance and what corrective actions could be taken. Create a flowchart showing the decision process for selecting between ankle, hip, and stepping strategies based on the magnitude of the balance disturbance.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 2 Summary: Balance and Stability"
+  content="Balance is a critical challenge in humanoid robotics due to the small support base. Balance control strategies include the ankle strategy (for small perturbations), hip strategy (for larger perturbations), and stepping strategy (for major disturbances). Stability metrics include center of mass, capture point, and angular momentum. Control algorithms include Linear Inverted Pendulum Model (LIPM), Cart-Table Model, and Whole-Body Control. This lesson covered the fundamental concepts of balance and stability for humanoid robots."
+/>

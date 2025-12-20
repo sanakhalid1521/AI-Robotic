@@ -22,3 +22,10 @@ Physical AI has applications in:
 - Smart manufacturing
 - Healthcare and assistive technologies
 - Environmental monitoring and remediation
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Chapter 1 Introduction Summary"
+  content="Physical AI represents the convergence of artificial intelligence and the physical world, focusing on systems that perceive their environment through sensors, reason about physical interactions, execute actions through actuators, and learn from physical experiences. It has applications in robotics, autonomous vehicles, smart manufacturing, healthcare, and environmental monitoring."
+/>

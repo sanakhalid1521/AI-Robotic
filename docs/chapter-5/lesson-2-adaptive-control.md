@@ -104,3 +104,10 @@ Adaptive control systems can modify their behavior based on changing conditions 
 ## Hands-On Activity
 
 Design an adaptive control system for a humanoid robot walking on different surfaces (grass, concrete, sand). Consider how the robot could detect the surface type and adapt its walking parameters accordingly. Identify which parameters might need adjustment (step length, step timing, foot placement, balance control gains) and how the robot could learn the appropriate settings for each surface type.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 2 Summary: Adaptive Control"
+  content="Adaptive control systems modify their behavior based on changing conditions or system parameters. Essential for handling environmental changes, system changes, and uncertainties in humanoid robots. Strategies include Model Reference Adaptive Control (MRAC), Self-Tuning Regulators (STR), and Gain Scheduling. Learning-based approaches include online learning, meta-learning, and multi-task learning. Applications include walking adaptation, manipulation adaptation, and balance adaptation. Key challenges include stability and safety during adaptation. This lesson covered the fundamental concepts of adaptive control for robotic systems."
+/>

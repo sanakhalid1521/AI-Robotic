@@ -21,3 +21,10 @@ Common actuation methods include:
 - Hydraulic systems for high force applications
 - Pneumatic actuators for lightweight solutions
 - Advanced materials like shape memory alloys
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Chapter 4 Summary: Control Systems & Actuation"
+  content="Control systems serve as the nervous system of robots, enabling precise movement and environmental interaction. Control architecture includes high-level planning, mid-level trajectory generation, low-level motor control, and feedback control loops. Actuation technologies include electric motors, hydraulic systems, pneumatic actuators, and advanced materials. This chapter covered the fundamental concepts of robotic control and actuation systems."
+/>

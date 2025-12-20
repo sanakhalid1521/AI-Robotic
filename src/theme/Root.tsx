@@ -1,6 +1,6 @@
 import React from 'react';
 import LayoutProvider from '../components/LayoutProvider';
-import { AuthProvider } from '../components/AuthContext';
+import { AuthProvider } from '../contexts/AuthContext';
 
 // Default implementation, that you can customize
 const Root = ({ children }: { children: React.ReactNode }) => {

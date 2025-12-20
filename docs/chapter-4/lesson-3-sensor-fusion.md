@@ -98,3 +98,10 @@ Sensor fusion is the process of combining data from multiple sensors to achieve 
 ## Hands-On Activity
 
 Design a simple sensor fusion system for estimating a humanoid robot's position. Consider fusing data from wheel encoders, IMU, and camera. Create a block diagram showing how the different sensors' data would be combined. Consider the advantages and disadvantages of each sensor, and how their combination would improve the overall position estimate compared to using each sensor alone.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 3 Summary: Sensor Fusion"
+  content="Sensor fusion combines data from multiple sensors to achieve better accuracy, reliability, and robustness than single sensors alone. Key benefits include redundancy, complementary information, and improved accuracy. Fusion techniques include Kalman filtering, Extended Kalman Filter, and Particle filtering. Architectures include centralized, distributed, and hierarchical fusion. Common combinations include visual-inertial and LIDAR-inertial fusion. Challenges include time synchronization and data association. This lesson covered the fundamental concepts of sensor fusion for robotic systems."
+/>

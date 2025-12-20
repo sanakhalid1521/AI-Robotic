@@ -22,3 +22,10 @@ Designing effective humanoid robots involves addressing:
 - Complex motor control for natural motion
 - Human-robot interaction and communication
 - Energy efficiency for sustained operation
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Chapter 2 Summary: Humanoid Robotics Fundamentals"
+  content="Humanoid robotics focuses on creating robots with human-like characteristics for interaction with human environments. Key components include bipedal locomotion systems, anthropomorphic body structure, multi-fingered hands, and sensor-equipped heads. The field addresses challenges in balance and stability, complex motor control, human-robot interaction, and energy efficiency. This chapter established the foundational concepts for understanding humanoid robot design and functionality."
+/>

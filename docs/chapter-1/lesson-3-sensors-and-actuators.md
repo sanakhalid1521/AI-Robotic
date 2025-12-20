@@ -40,3 +40,10 @@ Research and compare the specifications of different actuators for a humanoid ro
 - Size and weight constraints
 
 Create a simple table comparing at least 3 different actuator options for the knee joint, including their pros and cons for humanoid applications.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 3 Summary: Sensors and Actuators"
+  content="Sensors and actuators form the interface between a robot and its environment. Sensors provide input about the world, including proprioceptive sensors (encoders, force/torque sensors, IMUs) and exteroceptive sensors (cameras, LIDAR, ultrasonic, tactile). Actuators provide the ability to act upon the environment and include electric actuators (servo, stepper, DC motors) and other types (hydraulic, pneumatic). This lesson covered the fundamental sensor and actuator types essential for robotic systems."
+/>

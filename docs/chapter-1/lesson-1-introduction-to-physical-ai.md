@@ -32,3 +32,10 @@ const ball = {
 ```
 
 Try implementing the physics equations for the ball's motion and see how it behaves differently with various parameters.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 1 Summary: Introduction to Physical AI"
+  content="Physical AI combines artificial intelligence with physical systems, focusing on intelligent agents that interact with the physical world through sensors and actuators. Key concepts include embodiment, sensorimotor learning, and real-world constraints such as gravity and friction. This lesson introduced the fundamental differences between Physical AI and traditional AI, emphasizing the importance of understanding physical properties in AI systems."
+/>

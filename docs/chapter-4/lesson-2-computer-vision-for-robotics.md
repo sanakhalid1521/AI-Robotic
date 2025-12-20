@@ -72,3 +72,10 @@ Computer vision enables humanoid robots to interpret visual information from the
 ## Hands-On Activity
 
 Research different approaches to object detection for robotics applications. Compare traditional computer vision methods (like template matching or feature-based detection) with deep learning approaches (like YOLO or Faster R-CNN). Consider factors like accuracy, speed, computational requirements, and adaptability to new objects. Create a comparison table highlighting the trade-offs between different approaches for humanoid robot applications.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 2 Summary: Computer Vision for Robotics"
+  content="Computer vision enables humanoid robots to interpret visual information for navigation, object manipulation, and human interaction. Core tasks include object detection and recognition, scene understanding, and human detection and tracking. Vision systems support navigation through obstacle detection and Visual SLAM, and manipulation through object pose estimation and grasp planning. Deep learning approaches like CNNs provide powerful recognition capabilities but require balancing accuracy with computational requirements. This lesson covered the fundamental concepts of computer vision for robotic applications."
+/>

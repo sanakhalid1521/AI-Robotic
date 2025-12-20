@@ -69,6 +69,26 @@ const config: Config = {
           showLastUpdateTime: true,
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // Enable internationalization for docs
+          path: 'docs',
+          includeCurrentVersion: true,
+          editLocalizedFiles: true,
+          // Use different sidebar for different locales
+          sidebarItemsGenerator: async function ({
+            defaultSidebarItemsGenerator,
+            ...args
+          }) {
+            // Import the sidebars
+            const sidebarsModule = await import('./sidebars.ts');
+            const sidebars = sidebarsModule.default;
+
+            // Use urSidebar for Urdu locale, default for others
+            if (args.locale === 'ur' && sidebars.urSidebar) {
+              return sidebars.urSidebar;
+            }
+            // For default locale and other locales, use the default behavior
+            return defaultSidebarItemsGenerator(args);
+          },
         },
         blog: false, // Optional: disable the blog plugin
         theme: {
@@ -90,14 +110,26 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'tutorialSidebar', // This will be handled by the sidebarItemsGenerator based on locale
           position: 'left',
           label: 'Textbook',
         },
         {
-          to: '/profile',
-          label: 'Profile',
+          to: '/author',
+          label: 'Author',
           position: 'right',
+        },
+        {
+          to: '/register',
+          label: 'Register',
+          position: 'right',
+          className: 'navbar-register-btn',
+        },
+        {
+          to: '/login',
+          label: 'Login',
+          position: 'right',
+          className: 'navbar-login-btn',
         },
         {
           type: 'localeDropdown',
@@ -119,6 +151,7 @@ const config: Config = {
             {
               label: 'Textbook',
               to: '/docs/intro',
+              // This will be localized automatically by Docusaurus
             },
           ],
         },

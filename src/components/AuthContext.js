@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const AuthContext = createContext(null);
 
 // API base URL
-const API_BASE_URL = typeof window !== 'undefined' ? 'https://sanakhalid123-physicalairag.hf.space' : 'http://localhost:8001';
+const API_BASE_URL = typeof window !== 'undefined' ? 'https://sanakhalid123-physicalairag.hf.space' : 'http://localhost:8000';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

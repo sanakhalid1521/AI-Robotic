@@ -36,3 +36,10 @@ title: 'فزیکل اے آئی اور ہیومنوائڈ روبوٹکس کا ت�
 [چیپٹر 1: فزیکل اے آئی کا تعارف سے شروع کریں](./chapter-1/intro.md)
 
 اگر آپ اس شعبے میں نئے ہیں، تو ہم آپ کی پیش رفت کو ٹریک کرنے اور آپ کے سیکھنے کے تجربے کو ذاتی نوعیت کے لیے اکاؤنٹ بنانے کی تجویز کرتے ہیں۔
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="خلاصہ: فزیکل اے آئی اور ہیومنوائڈ روبوٹکس کا تعارف"
+  content=" fizikal AI aur humanoid robotics ki is jami textbook mai aap ka khush amdeed! Ye interactive textbook aap ko fizikal artificial intelligence ke shaiye mai nazaria aur amali tajurba fara ham karne ke liye design ki gayi hai. Aap seekhenge ke fizikal AI ke bunyadi mafhum - AI aur jismani nizam ke milap ko. Har chapter mai nazaria, amali mithale aur sekhne ko majboot karne ke liye wajibat hain."
+/>

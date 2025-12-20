@@ -66,3 +66,10 @@ Perception systems in humanoid robots allow them to understand and interpret the
 ## Hands-On Activity
 
 Design a simple sensor fusion system that combines data from a camera and an IMU to estimate the position of an object in space. Consider how each sensor has different strengths and weaknesses, and how their combination can provide better estimates than either sensor alone. Sketch out the data flow and identify where sensor fusion would occur in your system.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 1 Summary: Perception Systems"
+  content="Perception systems in humanoid robots allow them to understand and interpret their environment through proprioception (internal sensing) and exteroception (external sensing). Vision systems include RGB cameras, depth cameras, and stereo vision. Other sensory systems include tactile sensing and auditory systems. Sensor fusion combines information from multiple sensors to improve accuracy and reliability. This lesson covered the fundamental concepts of robotic perception systems."
+/>

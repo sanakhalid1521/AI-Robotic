@@ -25,7 +25,20 @@ const RAGInterface = () => {
 
     try {
       // Call the backend API
-      const response = await fetch('http://localhost:8001/api/rag/query', {
+      // Language detection function
+      const detectLanguage = (text: string): string => {
+        // Simple heuristic to detect if text contains Urdu characters
+        const urduPattern = /[\u0600-\u06FF]/;
+        return urduPattern.test(text) ? 'ur' : 'en';
+      };
+
+      // Use appropriate backend URL based on environment
+      const backendUrl = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+        ? 'https://sanakhalid123-physicalairag.hf.space'
+        : 'http://localhost:8000';
+      const apiUrl = `${backendUrl}/api/rag/query`;
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,6 +46,7 @@ const RAGInterface = () => {
         body: JSON.stringify({
           query: input,
           context: messages.map(m => m.content).join(' '),
+          language: detectLanguage(input) // Detect language and send parameter
         }),
       });
 
@@ -68,8 +82,14 @@ const RAGInterface = () => {
     setMessages([]);
 
     try {
+      // Use appropriate backend URL based on environment for paper generation
+      const backendUrl = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+        ? 'https://sanakhalid123-physicalairag.hf.space'
+        : 'http://localhost:8000';
+      const paperApiUrl = `${backendUrl}/api/rag/generate-paper`;
+
       // Call the paper generation API
-      const response = await fetch('http://localhost:8001/api/rag/generate-paper', {
+      const response = await fetch(paperApiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

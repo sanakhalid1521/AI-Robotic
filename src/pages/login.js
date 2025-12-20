@@ -1,35 +1,28 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import { useHistory, useLocation } from '@docusaurus/router';
-import { useAuth } from '../components/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const history = useHistory();
-  const { signIn, signInWithGoogle } = useAuth();
-
-  const handleGoogleLogin = async () => {
-    try {
-      // Use the auth context method for Google login
-      signInWithGoogle();
-    } catch (err) {
-      setError('Google login failed. Please try again.');
-    }
-  };
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Call the signIn function from auth context
-    const result = await signIn(email, password);
+    try {
+      // Call the login function from auth context
+      const result = await login(email, password);
 
-    if (result.success) {
       // Redirect to homepage or previous page
-      history.push('/');
-    } else {
-      setError(result.message || 'Login failed. Please check your credentials.');
+      const location = useLocation();
+      const from = location.state?.from?.pathname || '/';
+      history.push(from);
+    } catch (err) {
+      setError('Login failed. Please check your credentials.');
     }
   };
 
@@ -44,21 +37,6 @@ function LoginPage() {
               </div>
               <div className="card__body">
                 {error && <div className="alert alert--danger">{error}</div>}
-
-                {/* Google Login Button */}
-                <div className="margin-bottom--lg">
-                  <button
-                    type="button"
-                    className="button button--secondary button--block"
-                    onClick={handleGoogleLogin}
-                  >
-                    <i className="fab fa-google"></i> Continue with Google
-                  </button>
-                </div>
-
-                <div className="margin-bottom--lg text--center">
-                  <span className="color--gray">or</span>
-                </div>
 
                 <form onSubmit={handleLogin}>
                   <div className="margin-bottom--md">

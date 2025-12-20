@@ -84,3 +84,10 @@ Learning in physical systems involves developing algorithms that allow robots to
 ## Hands-On Activity
 
 Research the concept of "sim-to-real transfer" in robotics. Identify the main challenges in transferring skills learned in simulation to real robots. Consider factors like reality gap, sensor differences, and dynamic modeling errors. Propose potential solutions for bridging the sim-to-real gap and make a list of when simulation-based learning would be most beneficial versus direct real-world learning.
+
+import SummaryButton from '@site/src/components/SummaryButton';
+
+<SummaryButton
+  title="Lesson 1 Summary: Learning in Physical Systems"
+  content="Learning in physical systems involves algorithms that allow robots to improve performance through real-world experience. Key challenges include safety constraints, real-time requirements, and sample efficiency. Learning types include reinforcement learning, imitation learning, and self-supervised learning. Approaches include model-free, model-based, and simulation-based learning. Applications in humanoid robotics include motor skill learning and task learning. This lesson covered the fundamental concepts of learning in physical robotic systems."
+/>
