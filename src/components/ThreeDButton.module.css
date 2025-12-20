@@ -1,0 +1,229 @@
+.threeDButton {
+  position: relative;
+  display: inline-block;
+  padding: 12px 24px;
+  margin: 4px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 6px 0 #b3b3b3,
+    0 10px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transform: translateY(0);
+  user-select: none;
+}
+
+.threeDButton__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.threeDButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+  z-index: 0;
+  border-radius: 12px;
+}
+
+.threeDButton:hover:not(.threeDButton--disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 0 #b3b3b3,
+    0 14px 25px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(145deg, #f0f0f0, #ffffff);
+}
+
+.threeDButton:active:not(.threeDButton--disabled) {
+  transform: translateY(4px);
+  box-shadow:
+    0 2px 0 #b3b3b3,
+    0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.threeDButton--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: translateY(0);
+  box-shadow:
+    0 4px 0 #d9d9d9,
+    0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Primary variant - Magenta */
+.threeDButton--primary {
+  background: linear-gradient(145deg, #ff33ff, #ff66ff);
+  color: white;
+}
+
+.threeDButton--primary::before {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+.threeDButton--primary:hover:not(.threeDButton--disabled) {
+  background: linear-gradient(145deg, #ff4dff, #ff7fff);
+}
+
+.threeDButton--primary:active:not(.threeDButton--disabled) {
+  box-shadow:
+    0 2px 0 #cc29cc,
+    0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Secondary variant - Pink */
+.threeDButton--secondary {
+  background: linear-gradient(145deg, #ff69b4, #ffb6c1);
+  color: white;
+}
+
+.threeDButton--secondary::before {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+.threeDButton--secondary:hover:not(.threeDButton--disabled) {
+  background: linear-gradient(145deg, #ff7cb4, #ffc1c9);
+}
+
+.threeDButton--secondary:active:not(.threeDButton--disabled) {
+  box-shadow:
+    0 2px 0 #cc5a9e,
+    0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Success variant - Green */
+.threeDButton--success {
+  background: linear-gradient(145deg, #4caf50, #81c784);
+  color: white;
+}
+
+.threeDButton--success::before {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+.threeDButton--success:hover:not(.threeDButton--disabled) {
+  background: linear-gradient(145deg, #66bb6a, #a5d6a7);
+}
+
+.threeDButton--success:active:not(.threeDButton--disabled) {
+  box-shadow:
+    0 2px 0 #388e3c,
+    0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Warning variant - Orange */
+.threeDButton--warning {
+  background: linear-gradient(145deg, #ff9800, #ffb74d);
+  color: white;
+}
+
+.threeDButton--warning::before {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+.threeDButton--warning:hover:not(.threeDButton--disabled) {
+  background: linear-gradient(145deg, #ffa726, #ffcc80);
+}
+
+.threeDButton--warning:active:not(.threeDButton--disabled) {
+  box-shadow:
+    0 2px 0 #f57c00,
+    0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Danger variant - Red */
+.threeDButton--danger {
+  background: linear-gradient(145deg, #f44336, #e57373);
+  color: white;
+}
+
+.threeDButton--danger::before {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+.threeDButton--danger:hover:not(.threeDButton--disabled) {
+  background: linear-gradient(145deg, #ef5350, #ef9a9a);
+}
+
+.threeDButton--danger:active:not(.threeDButton--disabled) {
+  box-shadow:
+    0 2px 0 #d32f2f,
+    0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Chapter variant - Blue */
+.threeDButton--chapter {
+  background: linear-gradient(145deg, #2196F3, #64B5F6);
+  color: white;
+}
+
+.threeDButton--chapter::before {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+.threeDButton--chapter:hover:not(.threeDButton--disabled) {
+  background: linear-gradient(145deg, #42A5F5, #90CAF9);
+}
+
+.threeDButton--chapter:active:not(.threeDButton--disabled) {
+  box-shadow:
+    0 2px 0 #1976D2,
+    0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Lesson variant - Purple */
+.threeDButton--lesson {
+  background: linear-gradient(145deg, #9C27B0, #BA68C8);
+  color: white;
+}
+
+.threeDButton--lesson::before {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+.threeDButton--lesson:hover:not(.threeDButton--disabled) {
+  background: linear-gradient(145deg, #AB47BC, #CE93D8);
+}
+
+.threeDButton--lesson:active:not(.threeDButton--disabled) {
+  box-shadow:
+    0 2px 0 #7B1FA2,
+    0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Size variants */
+.threeDButton--small {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.threeDButton--large {
+  padding: 16px 32px;
+  font-size: 18px;
+}
+
+/* Animation for special effects */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.threeDButton:hover:not(.threeDButton--disabled):not(.threeDButton--disabled) {
+  animation: pulse 1s infinite;
+}
